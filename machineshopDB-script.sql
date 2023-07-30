@@ -2,9 +2,9 @@
 -- DESAFIO DE PROJETO: CRIANDO UM MODELO LÓGICO DO ZERO --------------
 
 -- criar banco de dados
+
 create database machineshopDB;
 use machineshopDB;
-show tables;
 
 -- CRIAR TABELAS DE ENTIDADE -----------------------------------------
 
@@ -29,6 +29,7 @@ create table vehicles(
     licence_plate char(7),
     brand varchar(20),
     model varchar(20),
+    _year date,
     category enum("SUV", "Sedan", "Hatch"),
     color varchar(20),
     observation varchar(500),
@@ -40,7 +41,7 @@ create table vehicles(
 
 create table pieces(
 	id int auto_increment primary key,
-    piece_name varchar(45),
+    _name varchar(45),
     model varchar(20),
     producer varchar(30),
     cost float,
@@ -92,9 +93,10 @@ create table service_orders(
     team_id int,
     _status enum("Em análise", "Aguardando autorização", "Em andamento", "Finalizado"),
     start_date date,
-    return_date date,
+    finish_date date,
     _description varchar(300),
     cost float,
+    client_authorization boolean default false,
     observation varchar(500),
     constraint fk_service_order_vehicle_id foreign key (vehicle_id) references vehicles(id),
     constraint fk_service_order_team_id foreign key (team_id) references teams(id)
